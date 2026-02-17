@@ -1,24 +1,19 @@
-# ---------- STAGE 1 : BUILD ----------
+# ---------- BUILD STAGE ----------
 FROM maven:3.9.6-eclipse-temurin-17 AS builder
 
 WORKDIR /app
 
-# Copy entire project
-COPY demo ./demo
+# Copy everything inside demo
+COPY . .
 
-WORKDIR /app/demo
-
-# Build jar
 RUN mvn clean package -DskipTests
 
-
-# ---------- STAGE 2 : RUN ----------
+# ---------- RUNTIME STAGE ----------
 FROM eclipse-temurin:17-jdk-alpine
 
 WORKDIR /app
 
-# Copy jar from builder stage
-COPY --from=builder /app/demo/target/demo-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=builder /app/target/demo-0.0.1-SNAPSHOT.jar app.jar
 
 EXPOSE 8081
 
