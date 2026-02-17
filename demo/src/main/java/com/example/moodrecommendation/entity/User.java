@@ -1,4 +1,4 @@
-package com.example.moodrecommendation.Entity;
+package com.example.moodrecommendation.entity;
 
 import jakarta.persistence.*;
 

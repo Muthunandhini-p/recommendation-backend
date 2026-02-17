@@ -1,6 +1,6 @@
 package com.example.moodrecommendation.repository;
 
-import com.example.moodrecommendation.Entity.Recommendation;
+import com.example.moodrecommendation.entity.Recommendation;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

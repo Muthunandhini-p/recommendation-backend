@@ -1,13 +1,12 @@
-
 package com.example.moodrecommendation.controller;
 
-import com.example.moodrecommendation.Entity.MoodEntry;
-import com.example.moodrecommendation.Entity.Recommendation;
+import com.example.moodrecommendation.entity.MoodEntry;
+import com.example.moodrecommendation.dto.MoodRequest;
+import com.example.moodrecommendation.dto.Recommendation;
 import com.example.moodrecommendation.service.MoodService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -21,25 +20,32 @@ public class Moodcontroller {
     }
 
     @PostMapping("/mood")
-    public ResponseEntity<String> saveMood(
-            @RequestParam String username,
-            @RequestParam String mood) {
+    public ResponseEntity<String> saveMood(@RequestBody MoodRequest request) {
 
-        service.saveMood(username, mood);
-        return ResponseEntity.ok("Mood saved");
+        service.saveMood(
+                request.getUsername(),
+                request.getMood()
+        );
+
+        return ResponseEntity.ok("Mood saved successfully");
     }
 
     @GetMapping("/recommend/{mood}")
-    public ResponseEntity<Map<String, Recommendation>> recommend(
-            @PathVariable String mood) {
+    public ResponseEntity<Recommendation> recommend(@PathVariable String mood) {
 
         return ResponseEntity.ok(service.getRecommendations(mood));
     }
 
+    // Mood history
     @GetMapping("/history/{username}")
-    public ResponseEntity<List<MoodEntry>> history(
-            @PathVariable String username) {
+    public ResponseEntity<List<MoodEntry>> history(@PathVariable String username) {
 
         return ResponseEntity.ok(service.getHistory(username));
     }
+    @DeleteMapping("/mood/{id}")
+    public ResponseEntity<String> deleteMood(@PathVariable Long id) {
+        service.deleteMood(id);
+        return ResponseEntity.ok("Mood deleted successfully");
+    }
+
 }

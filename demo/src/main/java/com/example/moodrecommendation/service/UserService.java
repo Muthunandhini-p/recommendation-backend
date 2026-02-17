@@ -1,6 +1,6 @@
 package com.example.moodrecommendation.service;
 
-import com.example.moodrecommendation.Entity.User;
+import com.example.moodrecommendation.entity.User;
 import com.example.moodrecommendation.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
